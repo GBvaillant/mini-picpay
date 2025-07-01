@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "transactions")
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 @EqualsAndHashCode(of="id")
 public class Transaction {
     @Id
