@@ -1,11 +1,13 @@
 package com.picpaysimplificado.services;
 
+import com.picpaysimplificado.dtos.UserDTO;
 import com.picpaysimplificado.entity.User;
 import com.picpaysimplificado.entity.UserType;
 import com.picpaysimplificado.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -32,8 +34,24 @@ public class UserService {
                 .orElseThrow(() -> new Exception("Usuário não encontrado"));
     }
 
+    public User createUser(UserDTO data) throws Exception {
+
+        if (userRepository.findByDocument(data.document()).isPresent()) {
+            throw new Exception("Usuário já cadastrado com o documento: " + data.document());
+        }
+
+        User newUser = new User(data);
+        this.saveUser(newUser);
+
+        return newUser;
+    }
+
     public void saveUser(User user) {
         userRepository.save(user);
+    }
+
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
     }
 
 }
