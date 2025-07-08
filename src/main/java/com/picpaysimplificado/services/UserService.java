@@ -35,14 +35,8 @@ public class UserService {
     }
 
     public User createUser(UserDTO data) throws Exception {
-
-        if (userRepository.findByDocument(data.document()).isPresent()) {
-            throw new Exception("Usuário já cadastrado com o documento: " + data.document());
-        }
-
         User newUser = new User(data);
         this.saveUser(newUser);
-
         return newUser;
     }
 
